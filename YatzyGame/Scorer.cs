@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace YatzyGame
 {
@@ -25,8 +26,30 @@ namespace YatzyGame
                         ? 50
                         : 0;
                     break;
+                case Category.Ones:
+                    result = ScoreSinglesCategory(dice, 1);
+                    break;
+                case Category.Twos:
+                    result = ScoreSinglesCategory(dice, 2);
+                    break;
+                case Category.Threes:
+                    result = ScoreSinglesCategory(dice, 3);
+                    break;
+                default:
+                    throw new NotImplementedException("category");
             }
             
+            return result;
+        }
+
+        private static int ScoreSinglesCategory(List<int> dice, int filter)
+        {
+            var result = 0;
+            foreach (var roll in dice)
+            {
+                if (roll == filter) result += roll;
+            }
+
             return result;
         }
     }
