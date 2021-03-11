@@ -35,6 +35,29 @@ namespace YatzyGame
                 case Category.Threes:
                     result = ScoreSinglesCategory(dice, 3);
                     break;
+                case Category.Fours:
+                    result = ScoreSinglesCategory(dice, 4);
+                    break;
+                case Category.Fives:
+                    result = ScoreSinglesCategory(dice, 5);
+                    break;
+                case Category.Sixes:
+                    result = ScoreSinglesCategory(dice, 6);
+                    break;
+                case Category.Pair:
+                    result = 0;
+                    var countTracker = new int[] {0,0,0,0,0,0};
+                    foreach (var roll in dice)
+                    {
+                        countTracker[roll - 1]++;
+                    }
+
+                    for (int i = 0; i < countTracker.Length; i++)
+                    {
+                        if (countTracker[i] == 2)
+                            result = (i + 1) * 2;
+                    }
+                    break;
                 default:
                     throw new NotImplementedException("category");
             }
