@@ -1,0 +1,13 @@
+﻿# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/projectSettingsUpdater.xml
+/contentModel.xml
+/.idea.YatzyKata.iml
+/modules.xml
+# Datasource local storage ignored files
+/../../../../../../../../../../:\Users\chruc\Documents\Dev\C#\YatzyKata\.idea\.idea.YatzyKata.dir\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
