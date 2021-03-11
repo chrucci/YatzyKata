@@ -54,7 +54,7 @@ namespace YatzyGame
 
                     for (int i = 0; i < countTracker.Length; i++)
                     {
-                        if (countTracker[i] == 2)
+                        if (countTracker[i] >= 2)
                             result = (i + 1) * 2;
                     }
                     break;

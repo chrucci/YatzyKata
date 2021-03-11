@@ -207,6 +207,14 @@ namespace YatzyGameTests
             Assert.AreEqual(expected, Scorer.Score(dice, Category.Pair));
         }
 
+        [Test]
+        public void Score_PairWithOneValueAsThreeOfAKind_ReturnsSumOfThatValueAsPair()
+        {
+            var dice = CreateDice(6,5,1,6,6);
+            var expected = 12;
+            Assert.AreEqual(expected, Scorer.Score(dice, Category.Pair));
+        }
+
         List<int> CreateDice(int first, int second, int third, int fourth, int fifth)
         {
             return new List<int>() {first, second, third, fourth, fifth};
