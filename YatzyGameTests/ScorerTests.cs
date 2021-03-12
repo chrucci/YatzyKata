@@ -283,5 +283,77 @@ namespace YatzyGameTests
             var expected = 24;
             Assert.AreEqual(expected, Scorer.Score(dice, Category.FourOfAKind));
         }
+
+        [Test]
+        public void Score_FourOfAKindWithMoreThanAMatch_ReturnsSum()
+        {
+            var dice = CreateDice(6,6,6,6,6);
+            var expected = 24;
+            Assert.AreEqual(expected, Scorer.Score(dice, Category.FourOfAKind));
+        }
+
+        [Test]
+        public void Score_SmallStraightWithoutAMatch_ReturnsZero()
+        {
+            var dice = CreateDice(6,5,1,5,6);
+            var expected = 0;
+            Assert.AreEqual(expected, Scorer.Score(dice, Category.SmallStraight));
+        }
+
+        [Test]
+        public void Score_SmallStraightWithAMatch_ReturnsSum()
+        {
+            var dice = CreateDice(3,2,3,4,5);
+            var expected = 14;
+            Assert.AreEqual(expected, Scorer.Score(dice, Category.SmallStraight));
+        }
+
+        [Test]
+        public void Score_SmallStraightWithAMatchWithDuplicateNumbers_ReturnsSum()
+        {
+            var dice = CreateDice(1,2,3,4,2);
+            var expected = 10;
+            Assert.AreEqual(expected, Scorer.Score(dice, Category.SmallStraight));
+        }
+
+        [Test]
+        public void Score_SmallStraightWithAMatchOurOfOrder_ReturnsSum()
+        {
+            var dice = CreateDice(5,2,3,4,2);
+            var expected = 14;
+            Assert.AreEqual(expected, Scorer.Score(dice, Category.SmallStraight));
+        }
+
+        [Test]
+        public void Score_SmallStraightWithLargeStraight_ReturnsSmallStraightSum()
+        {
+            var dice = CreateDice(1,2,3,4,5);
+            var expected = 14;
+            Assert.AreEqual(expected, Scorer.Score(dice, Category.SmallStraight));
+        }
+
+        [Test]
+        public void Score_LargeStraightWithoutAMatch_ReturnsZero()
+        {
+            var dice = CreateDice(6,5,1,5,6);
+            var expected = 0;
+            Assert.AreEqual(expected, Scorer.Score(dice, Category.LargeStraight));
+        }
+
+        [Test]
+        public void Score_LargeStraightWithAMatch_ReturnsSum()
+        {
+            var dice = CreateDice(2,3,4,5,6);
+            var expected = 20;
+            Assert.AreEqual(expected, Scorer.Score(dice, Category.LargeStraight));
+        }
+
+        [Test]
+        public void Score_LargeStraightWithAnUnsortedMatch_ReturnsSum()
+        {
+            var dice = CreateDice(2,3,4,5,1);
+            var expected = 15;
+            Assert.AreEqual(expected, Scorer.Score(dice, Category.LargeStraight));
+        }
     }
 }

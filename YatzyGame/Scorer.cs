@@ -9,10 +9,13 @@ namespace YatzyGame
         private const int CountOfCardsInPair = 2;
         private const int CountOfCardsInThreeOfAKind = 3;
         private const int CountOfCardsInFourOfAKind = 4;
+        private const int LengthOfSmallStraight = 4;
+        private const int LengthOfLargeStraight = 5;
         public static int Score(List<int> dice, Category category)
         { 
             var result = 0;
             var countTracker = CountDiceValues(dice);
+            int tempResult;
             switch (category)
             {
                 case Category.Chance:
@@ -59,7 +62,7 @@ namespace YatzyGame
                 case Category.TwoPairs:
 
                     var foundFirstPair = false;
-                    var tempResult = 0;
+                    tempResult = 0;
                     for (int i = 0; i < countTracker.Length; i++)
                     {
                         if (countTracker[i] >= CountOfCardsInPair)
@@ -85,11 +88,57 @@ namespace YatzyGame
                             result = CalculateFourOfAKindScore(i);
                     }
                     break;
+                case Category.SmallStraight:
+                    result = GetScoreForStraight(countTracker, LengthOfSmallStraight);
+                    break;
+                case Category.LargeStraight:
+                    result = GetScoreForStraight(countTracker, LengthOfLargeStraight);
+                    break;
                 default:
                     throw new NotImplementedException("category");
             }
             
             return result;
+        }
+
+        private static int GetScoreForStraight(int[] countTracker, int lengthOfStraight)
+        {
+            int result = 0;
+            int tempResult;
+            tempResult = 0;
+            var inARowCounter = 1;
+            var previousValue = -1;
+            var diceValue = 0;
+
+            for (int i = countTracker.Length - 1; i >= 0; i--)
+            {
+                if (countTracker[i] > 0) diceValue = i + 1;
+                if (IsThisRollIncremental(previousValue, diceValue))
+                {
+                    tempResult += diceValue;
+                    inARowCounter++;
+                }
+                else
+                {
+                    tempResult = 0;
+                    inARowCounter = 1;
+                    tempResult = diceValue;
+                }
+
+                if (inARowCounter == lengthOfStraight)
+                {
+                    result = tempResult;
+                }
+
+                previousValue = diceValue;
+            }
+
+            return result;
+        }
+
+        private static bool IsThisRollIncremental(int previousValue, int roll)
+        {
+            return (previousValue - 1) == roll;
         }
 
         private static int[] CountDiceValues(List<int> dice)
