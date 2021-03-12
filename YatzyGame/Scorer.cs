@@ -7,8 +7,8 @@ namespace YatzyGame
     public static class Scorer
     {
         private const int CountOfCardsInPair = 2;
-        private const int CountOfCardsIn3OfAKind = 3;
-        private const int CountOfCardsIn4OfAKind = 4;
+        private const int CountOfCardsInThreeOfAKind = 3;
+        private const int CountOfCardsInFourOfAKind = 4;
         public static int Score(List<int> dice, Category category)
         { 
             var result = 0;
@@ -73,10 +73,17 @@ namespace YatzyGame
                 case Category.ThreeOfAKind:
                     for (int i = 0; i < countTracker.Length; i++)
                     {
-                        if (countTracker[i] >= CountOfCardsIn3OfAKind)
+                        if (countTracker[i] >= CountOfCardsInThreeOfAKind)
                             result = CalculateThreeOfAKindScore(i);
                     }
                     
+                    break;
+                case Category.FourOfAKind:
+                    for (int i = 0; i < countTracker.Length; i++)
+                    {
+                        if (countTracker[i] >= CountOfCardsInFourOfAKind)
+                            result = CalculateFourOfAKindScore(i);
+                    }
                     break;
                 default:
                     throw new NotImplementedException("category");
@@ -100,15 +107,20 @@ namespace YatzyGame
         {
             return (i + 1) * cardsInTuple;
         }
-        
+
         private static int CalculatePairScore(int i)
         {
             return CalculateTupleScore(i, CountOfCardsInPair);
         }
-        
+
         private static int CalculateThreeOfAKindScore(int i)
         {
-            return CalculateTupleScore(i, CountOfCardsIn3OfAKind);
+            return CalculateTupleScore(i, CountOfCardsInThreeOfAKind);
+        }
+
+        private static int CalculateFourOfAKindScore(int i)
+        {
+            return CalculateTupleScore(i, CountOfCardsInFourOfAKind);
         }
 
         private static int ScoreSinglesCategory(List<int> dice, int filter)

@@ -7,6 +7,11 @@ namespace YatzyGameTests
 {
     public class ScorerTests
     {
+        List<int> CreateDice(int first, int second, int third, int fourth, int fifth)
+        {
+            return new List<int>() {first, second, third, fourth, fifth};
+        }
+        
         [Test]
         public void Score_Chance_ReturnsSumOfAllDice()
         {
@@ -263,9 +268,20 @@ namespace YatzyGameTests
             Assert.AreEqual(expected, Scorer.Score(dice, Category.ThreeOfAKind));
         }
 
-        List<int> CreateDice(int first, int second, int third, int fourth, int fifth)
+        [Test]
+        public void Score_FourOfAKindWithoutAMatch_ReturnsZero()
         {
-            return new List<int>() {first, second, third, fourth, fifth};
+            var dice = CreateDice(6,5,1,5,6);
+            var expected = 0;
+            Assert.AreEqual(expected, Scorer.Score(dice, Category.FourOfAKind));
+        }
+
+        [Test]
+        public void Score_FourOfAKindWithAMatch_ReturnsSum()
+        {
+            var dice = CreateDice(6,6,1,6,6);
+            var expected = 24;
+            Assert.AreEqual(expected, Scorer.Score(dice, Category.FourOfAKind));
         }
     }
 }
