@@ -355,5 +355,21 @@ namespace YatzyGameTests
             var expected = 15;
             Assert.AreEqual(expected, Scorer.Score(dice, Category.LargeStraight));
         }
+        
+        [Test]
+        public void Score_FullHouseWithoutAMatch_ReturnsZero()
+        {
+            var dice = CreateDice(6,5,1,5,6);
+            var expected = 0;
+            Assert.AreEqual(expected, Scorer.Score(dice, Category.FullHouse));
+        }
+        
+        [Test]
+        public void Score_FullHouseWithAMatch_ReturnsSum()
+        {
+            var dice = CreateDice(6,5,5,5,6);
+            var expected = 27;
+            Assert.AreEqual(expected, Scorer.Score(dice, Category.FullHouse));
+        }
     }
 }

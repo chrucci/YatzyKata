@@ -94,6 +94,23 @@ namespace YatzyGame
                 case Category.LargeStraight:
                     result = GetScoreForStraight(countTracker, LengthOfLargeStraight);
                     break;
+                case Category.FullHouse:
+                    var pairResult = 0;
+                    var tripResult = 0;
+                    for (int i = 0; i < countTracker.Length; i++)
+                    {
+                        if (countTracker[i] == CountOfCardsInPair)
+                            pairResult = CalculatePairScore(i);
+                    }
+                    for (int i = 0; i < countTracker.Length; i++)
+                    {
+                        if (countTracker[i] >= CountOfCardsInThreeOfAKind)
+                            tripResult = CalculateThreeOfAKindScore(i);
+                    }
+
+                    if (tripResult != 0 && pairResult != 0) 
+                        result = tripResult + pairResult;
+                    break;
                 default:
                     throw new NotImplementedException("category");
             }
