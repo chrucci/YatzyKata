@@ -215,6 +215,54 @@ namespace YatzyGameTests
             Assert.AreEqual(expected, Scorer.Score(dice, Category.Pair));
         }
 
+        [Test]
+        public void Score_TwoPairWithNoPairs_ReturnsZero()
+        {
+            var dice = CreateDice(6,5,1,2,4);
+            var expected = 0;
+            Assert.AreEqual(expected, Scorer.Score(dice, Category.TwoPairs));
+        }
+
+        [Test]
+        public void Score_TwoPairWithOnlyOnePair_ReturnsZero()
+        {
+            var dice = CreateDice(6,5,1,2,6);
+            var expected = 0;
+            Assert.AreEqual(expected, Scorer.Score(dice, Category.TwoPairs));
+        }
+
+        [Test]
+        public void Score_TwoPairWithTwoPair_ReturnsSumOfBothPairs()
+        {
+            var dice = CreateDice(6,5,1,5,6);
+            var expected = 22;
+            Assert.AreEqual(expected, Scorer.Score(dice, Category.TwoPairs));
+        }
+
+        [Test]
+        public void Score_ThreeOfAKindWithoutAMatch_ReturnsZero()
+        {
+            var dice = CreateDice(6,5,1,5,6);
+            var expected = 0;
+            Assert.AreEqual(expected, Scorer.Score(dice, Category.ThreeOfAKind));
+        }
+
+        [Test]
+        public void Score_ThreeOfAKindWithAMatch_ReturnsSum()
+        {
+            var dice = CreateDice(5,5,1,5,6);
+            var expected = 15;
+            Assert.AreEqual(expected, Scorer.Score(dice, Category.ThreeOfAKind));
+        }
+
+        [Test]
+        public void Score_ThreeOfAKindWithMoreThanAMatch_ReturnsSumOfMatchONly()
+        {
+            var dice = CreateDice(5,5,5,5,6);
+            var expected = 15;
+            Assert.AreEqual(expected, Scorer.Score(dice, Category.ThreeOfAKind));
+        }
+
         List<int> CreateDice(int first, int second, int third, int fourth, int fifth)
         {
             return new List<int>() {first, second, third, fourth, fifth};
